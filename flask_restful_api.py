@@ -101,21 +101,18 @@ def update_country(old_name):
 # SECTION :: DELETE Requests
 # ------------------------------------------------------------------------------
 
-@app.route('/countries/', methods=['DELETE'])
-def delete_country():
+@app.route('/countries/<string:name>', methods=['DELETE'])
+def delete_country(name):
     """
     delete country given the `name`
     :param name: old name of country to be replaced
     """
 
-    # Retrieve values from json
-    name = request.json['name']
-
     for index, country in enumerate(countries):
         if country['name'] == name:
             # Perform the update
             countries.remove(country)
-            return countries
+            return jsonify({'countries': countries})
 
 
 # ------------------------------------------------------------------------------
